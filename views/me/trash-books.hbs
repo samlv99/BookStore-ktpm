@@ -1,0 +1,105 @@
+<div class="container">
+    <div class="my-4">
+      <h3>Sách Đã Xóa</h3>
+      <a href="/me/stored/books">Quay lại danh sách</a>
+    </div>
+    <div class="row my-4">
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">STT</th>
+                    <th scope="col">Tên Sách</th>
+                    <th scope="col">Tác Giả</th>
+                    <th scope="col">Giá Bìa</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {{#each books}}
+                <tr>
+                  <th scope="row">{{sum @index 1}}</th>
+                  <td>{{this.name}}</td>
+                  <td>{{this.author}}</td>
+                  <td>{{this.finalPrice}}</td>
+                  <td>
+                      <a href="" data-id={{this._id}} class="btn btn-link restore-book">Khôi phục</a>
+                      <!-- Button trigger modal -->
+                      <a type="button" class="btn btn-link" data-toggle="modal" data-target="#deleteModal" data-id={{this._id}} data-name="{{this.name}}">Xóa vĩnh viễn</a>
+                  </td>
+                </tr>
+                {{else}}
+                <tr>
+                  <td colspan="5" class="text-center">
+                    Không có sách nào bị xóa.
+                  </td>
+                </tr>
+                {{/each}}
+
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Cảnh Báo!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Hành động này sẽ không thể khôi phục.
+        Bạn có chắc chắn muốn xóa vĩnh viễn cuốn sách này? 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Không</button>
+        <button id="confirm-delete" type="button" class="btn btn-danger">Xóa vĩnh viễn</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<form id="form-restore-book" method="POST"></form>
+<form id="form-delete-book" method="POST"></form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+      let formRestoreBook = document.getElementById('form-restore-book');
+      let formDeleteBook = document.getElementById('form-delete-book');
+
+      //Restore
+      $('.restore-book').click(function(e) {
+        e.preventDefault();
+        let id = $(this).data('id');
+
+        formRestoreBook.action = `/books/${id}/restore?_method=PATCH`;
+        formRestoreBook.submit();
+      });
+
+      //Force Delete
+      $('#deleteModal').on('show.bs.modal', function (event) {
+          var button = $(event.relatedTarget) // Button that triggered the modal
+          var id = button.data('id'); 
+          var name = button.data('name'); 
+
+          //Set action for form-delete-book
+          formDeleteBook.action = `/books/${id}/force?_method=DELETE`;
+
+          var modal = $(this);
+          modal.find('.modal-title').text('Xóa vĩnh viễn ' + name + '?');
+      })
+
+      $('#confirm-delete').click(function() {
+          formDeleteBook.submit();
+      });
+
+    })
+</script>

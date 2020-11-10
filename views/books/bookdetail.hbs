@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="row text-center mt-5">
+
+        <div class="col-6">
+            <div class="product">
+                <a href="#"><img class="image" src="{{book.avatar}}" alt=""></a>
+                <h4 class="name">{{book.name}}</h4>
+                <p class="author">{{book.author}}</p>              
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="price-sale">
+                    <span class="price-final">{{book.finalPrice}}.000đ</span>
+                    <span class="saleOff">-{{book.saleOff}}%</span>
+                    <p class="priceRegular">{{book.priceRegular}}.000đ</p>
+            </div>
+            <a href="#" class="btn btn-info">Add To Cart</a>
+        </div>
+
+    </div>
+</div>

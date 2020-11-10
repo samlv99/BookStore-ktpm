@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="row">
+        <div class="col-8 offset-2">
+
+            <form method="POST" action='/books/store'>
+
+                <div class="form-group">
+                    <label for="name">Tên Sách</label>
+                    <input type="text" class="form-control" id="name" name="name">
+                </div>
+                <div class="form-group">
+                    <label for="name">Tác Giả</label>
+                    <input type="text" class="form-control" id="name" name="author">
+                </div>
+                <div class="form-group">
+                    <label for="avatar">Hình Mô Tả</label>
+                    <input type="text" class="form-control" id="avatar" name="avatar">
+                </div>
+                <div class="form-group">
+                    <label for="priceRegular">Giá Bìa</label>
+                    <input type="number" class="form-control" id="priceRegular" name="priceRegular">
+                </div>
+                <div class="form-group">
+                    <label for="saleOff">Sale Off</label>
+                    <input type="number" class="form-control" id="saleOff" name="saleOff">
+                </div>
+                <div class="form-group">
+                    <label for="finalPrice">Giá Cuối Cùng</label>
+                    <input type="number" class="form-control" id="finalPrice" name="finalPrice">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Thêm Sách</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
